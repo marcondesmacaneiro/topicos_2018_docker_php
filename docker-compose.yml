@@ -1,0 +1,23 @@
+version: '3.1'
+services:
+  mysql:
+    build: mysql
+    container_name: mysql-topicos
+    restart: always
+    volumes:
+    - ./mysql/data:/var/lib/mysql
+    environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - MYSQL_DATABASE=topicos
+    ports:
+    - 3361:3306
+  php:
+    build: php
+    container_name: php-topicos
+    restart: always
+    volumes:
+    - ./php:/var/php
+    ports:
+    - 8091:80
+    depends_on:
+    - mysql
